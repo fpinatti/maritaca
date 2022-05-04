@@ -20,13 +20,14 @@ export default function Header() {
 const styles = StyleSheet.create({
     container: {
         // flex: 1,
-        backgroundColor: '#f1f000',
+        // backgroundColor: '#f1f000',
         alignItems: 'center',
     },
     logo: {
         // width: '100%',
         // maxWidth: 100,
         height: 100,
+        marginTop: 30,
         // height: 100,
     }
 })

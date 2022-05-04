@@ -12,18 +12,20 @@ export function Main() {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Signin">
+        <Stack.Screen 
+          name="Signin"
+          component={Signin}
+          options={
+            {
+              headerTransparent: true,
+              title: '',
+            }
+          }
+        />
         <Stack.Screen name="Feeds" component={Feeds} />
-        <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Viewer" component={Viewer} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});

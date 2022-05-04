@@ -7,8 +7,8 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#C742A1"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -16,22 +16,19 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "package": "com.pinapps.maritaca",
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#C742A1"
+      },
+      "permissions": [
+        "READ_PHONE_STATE"
+      ]
     },
     "platforms": [
       "android"
-    ],
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    ]
   }
 }

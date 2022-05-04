@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ButtonCustom from './ButtonCustom';
 import RenderHtml from 'react-native-render-html';
 import { useNavigation } from '@react-navigation/native';
-import { fonts } from '../global/styles/theme';
+import { fonts, themeColors, themeStyles } from '../global/styles/theme';
 
 type Props = {
     title: String;
@@ -20,6 +20,16 @@ export default function({ title, provider, description, uri }: Props) {
         html: `${description}`
     };
 
+    const mixedStyles = {
+        color: themeColors.light.color,
+    }
+
+    const tagsStyles = {
+        a: {
+            color: themeColors.primary.color,
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.titleWrapper}>
@@ -30,6 +40,8 @@ export default function({ title, provider, description, uri }: Props) {
                 contentWidth={ 100 }
                 source={ source }
                 // renderers={ renderers }
+                baseStyle={ mixedStyles }
+                tagsStyles = { tagsStyles }
                 ignoredDomTags={ ['img', 'svg', 'iframe', 'progress'] }
             />
             <TouchableOpacity
@@ -37,7 +49,9 @@ export default function({ title, provider, description, uri }: Props) {
                     uri: uri
                 } as never)}
             >
-                <ButtonCustom label='READ ARTICLE'></ButtonCustom>
+                <ButtonCustom 
+                    label='READ ARTICLE'
+                />
             </TouchableOpacity>
         </View>
     );
@@ -46,12 +60,17 @@ export default function({ title, provider, description, uri }: Props) {
 const styles = StyleSheet.create({
     container: {
         alignItems: 'flex-start',
-        marginHorizontal: 5,
-        padding: 5,
-        borderRadius: 10,
+        backgroundColor: '#1A1A1A',
+        color: '#ffffff',
+        // marginHorizontal: 5,
+        padding: 12,
+        paddingBottom: 20,
+        paddingTop: 20,
+        // borderRadius: 10,
         borderBottomColor: '#444444',
         borderBottomWidth: 1,
-        marginBottom: 10,
+        marginBottom: 2,
+        // marginLeft: -10
     },
     titleWrapper: {
         flex: 1,
@@ -61,7 +80,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     tag: {
-        backgroundColor: '#121212',
+        backgroundColor: themeColors.tertiary.color,
         color: '#ffffff',
         padding: 3,
         borderRadius: 6,
@@ -69,6 +88,7 @@ const styles = StyleSheet.create({
     },
     title: {
         width: '60%',
+        color: '#ffffff'
     },
 })
 

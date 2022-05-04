@@ -8,33 +8,40 @@ import {
     Button,
 } from 'react-native';
 
-import signinImg from '../../assets/signin.png';
+import landingImg from '../../assets/landing.png';
 import { styles } from './styles';
 import { themeStyles } from '../../global/styles/theme';
 import Header from '../../components/Header';
 import ButtonCustom from '../../components/ButtonCustom';
+import { useNavigation } from '@react-navigation/native';
 // import * as GoogleSignIn from 'expo-google-sign-in';
 
 export function Signin() {
 
-    const onClickSignin = () => {
-        // GoogleSignIn.signInAsync()
-    }
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
             <Header />
-            <Image source={signinImg} style={themeStyles.fullBleed} />
+            <Image 
+                source={landingImg}
+                resizeMode='contain'
+                style={[themeStyles.fullBleed, styles.img]}
+            />
             <Text style={styles.title}>
-                Your fresh dev news, {`\n`}
+                Your fresh dev news,
+            </Text>
+            <Text style={styles.subtitle}>
                 every day!
             </Text>
-            <TouchableOpacity onPress={onClickSignin}>
+            <TouchableOpacity style={styles.button} onPress={() => {
+                navigation.navigate('Feeds' as never)}
+            }>
                 <ButtonCustom label='SIGN IN WITH GOOGLE' />
             </TouchableOpacity>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
                 <Text style={ themeStyles.centered }>Continue without login</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <StatusBar />
         </View>
     )
