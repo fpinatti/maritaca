@@ -2,7 +2,7 @@ import React from 'react';
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ButtonCustom from './ButtonCustom';
-import RenderHtml from 'react-native-render-html';
+// import RenderHtml from 'react-native-render-html';
 import { useNavigation } from '@react-navigation/native';
 import { fonts, themeColors, themeStyles } from '../global/styles/theme';
 
@@ -16,19 +16,19 @@ type Props = {
 export default function({ title, provider, description, uri }: Props) {
     const navigation = useNavigation();
     
-    const source = {
-        html: `${description}`
-    };
+    // const source = {
+    //     html: `${description}`
+    // };
 
-    const mixedStyles = {
-        color: themeColors.light.color,
-    }
+    // const mixedStyles = {
+    //     color: themeColors.light.color,
+    // }
 
-    const tagsStyles = {
-        a: {
-            color: themeColors.primary.color,
-        }
-    };
+    // const tagsStyles = {
+    //     a: {
+    //         color: themeColors.primary.color,
+    //     }
+    // };
 
     return (
         <View style={styles.container}>
@@ -36,14 +36,15 @@ export default function({ title, provider, description, uri }: Props) {
                 <Text style={[fonts.heading, styles.title]}>{ title }</Text>
                 <Text style={styles.tag}>{ provider }</Text>
             </View>
-            <RenderHtml
+            <Text style={styles.description}> { description } </Text>
+            {/* <RenderHtml
                 contentWidth={ 100 }
                 source={ source }
                 // renderers={ renderers }
                 baseStyle={ mixedStyles }
                 tagsStyles = { tagsStyles }
                 ignoredDomTags={ ['img', 'svg', 'iframe', 'progress'] }
-            />
+            /> */}
             <TouchableOpacity
                 onPress={() => navigation.navigate('Viewer' as never, {
                     uri: uri
@@ -89,6 +90,10 @@ const styles = StyleSheet.create({
     title: {
         width: '60%',
         color: '#ffffff'
+    },
+    description: {
+        color: '#ffffff',
+        marginBottom: 20,
     },
 })
 

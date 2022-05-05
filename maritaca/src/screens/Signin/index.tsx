@@ -37,7 +37,7 @@ export function Signin() {
             <TouchableOpacity style={styles.button} onPress={() => {
                 navigation.navigate('Feeds' as never)}
             }>
-                <ButtonCustom label='SIGN IN WITH GOOGLE' />
+                <ButtonCustom label='SEE ARTICLES' />
             </TouchableOpacity>
             {/* <TouchableOpacity>
                 <Text style={ themeStyles.centered }>Continue without login</Text>
