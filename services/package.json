@@ -1,0 +1,23 @@
+{
+  "name": "fetch",
+  "version": "1.0.0",
+  "description": "fetch rss from providers",
+  "main": "fetchRss.js",
+  "scripts": {
+    "weather": "node weather",
+    "feed": "node fetchRss",
+    "build": "node weather && node fetchRss fe && node fetchRss tst && node fetchRss data && node fetchRss leader",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "14.x"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "html-to-text": "^8.2.0",
+    "node-fetch": "^2.6.1",
+    "xml2js": "^0.4.23"
+  }
+}
