@@ -1,0 +1,11 @@
+name: 60-minute-cron
+on:
+  schedule:
+    - cron: '0 0/60 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Regenerate files
+        run: |
+          curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_ozM9ScwKf2A9kzqQvaLPIVbsN6tP/LnJ1anCeeS
