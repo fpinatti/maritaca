@@ -34,13 +34,13 @@ export const themeColors = StyleSheet.create({
 
 export const fonts = StyleSheet.create({
     heading: {
-        fontFamily: 'PlayfairDisplay_700Bold',
+        fontFamily: 'BioRhyme_700Bold',
         fontSize: 18,
         lineHeight: 24,
         marginBottom: 6,
     },
     cardHeading: {
-        fontFamily: 'PlayfairDisplay_700Bold',
+        fontFamily: 'BioRhyme_700Bold',
         fontSize: 18,
         lineHeight: 24,
     },

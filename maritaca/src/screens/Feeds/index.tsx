@@ -40,7 +40,7 @@ export function Feeds() {
     return (
         <View style={styles.container}>
             <Header collapseLogo={ true } />
-            <Text style={fonts.heading}>Olá,</Text>
+            <Text style={fonts.heading}>Kwaaak! Hi,</Text>
             {/* <Text style={fonts.text}>As experiencias mais legais no Maritaca Labs</Text> */}
             <Text style={fonts.text}>The coolest frontend articles and news you read here in Maritaca!</Text>
             {/* <Animated.View style={[

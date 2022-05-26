@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     label: {
-        fontFamily: 'PlayfairDisplay_700Bold',
+        fontFamily: 'BioRhyme_700Bold',
         fontSize: 16,
         lineHeight: 24,
         marginRight: 6,
