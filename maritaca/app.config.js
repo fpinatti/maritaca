@@ -20,7 +20,7 @@ export default {
     ],
     "android": {
       "package": "com.pinapps.maritaca",
-      "versionCode": 4,
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#C742A1"
