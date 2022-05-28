@@ -27,6 +27,9 @@ export const styles = StyleSheet.create({
     },
     button: {
         paddingHorizontal: 30,
+        marginBottom: 10,
+    },
+    bottomArea: {
         justifyContent: 'center',
         flexGrow: 2,
     }
