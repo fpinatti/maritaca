@@ -27,6 +27,8 @@ WebBrowser.maybeCompleteAuthSession();
 export function Signin() {
 
     const [ui, setUi] = useState<string>('')
+    const [tok, setTok] = useState<string>('')
+    const [respon, setRespon] = useState<string>('')
 
     const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId: '608932196934-855irecbrgvhnbc54nsaqh2hb32dd4gt.apps.googleusercontent.com',
@@ -70,6 +72,7 @@ export function Signin() {
 
     const getToken = async () => {
         const storedToken = await retrieveToken()
+        setTok(`${storedToken}`)
         if (storedToken) {
             getUserInfo(storedToken)
         }
@@ -77,6 +80,7 @@ export function Signin() {
 
     React.useEffect(() => {
         getToken()
+        setRespon(`${response}`)
         if (response?.type === 'success') {
             const { authentication } = response
             // console.log(authentication?.accessToken)
@@ -109,6 +113,8 @@ export function Signin() {
                 every day!
             </Text>
             <View style={styles.bottomArea}>
+                <Text>token: { tok }</Text>
+                <Text>response auth {respon} </Text>
                 <Text>user { ui }</Text>
                 <TouchableOpacity style={styles.button} onPress={clickSignin} >
                     <ButtonCustom label='JOIN WITH GOOGLE' />
