@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -26,10 +26,12 @@ WebBrowser.maybeCompleteAuthSession();
 
 export function Signin() {
 
+    const [ui, setUi] = useState<string>('')
+
     const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId: '608932196934-855irecbrgvhnbc54nsaqh2hb32dd4gt.apps.googleusercontent.com',
         // iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-        // androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        androidClientId: '608932196934-codd6n4nqt8pfme95925amqhkdsmvb63.apps.googleusercontent.com',
         webClientId: '608932196934-855irecbrgvhnbc54nsaqh2hb32dd4gt.apps.googleusercontent.com',
     });
 
@@ -57,6 +59,7 @@ export function Signin() {
 
     const getUserInfo = async (token: string) => {
         const userInfo = await fetchUserInfo(token)
+        setUi(`${userInfo.error} ** ${userInfo.email}`)
         if (userInfo.error) {
             return
         }
@@ -106,6 +109,7 @@ export function Signin() {
                 every day!
             </Text>
             <View style={styles.bottomArea}>
+                <Text>user { ui }</Text>
                 <TouchableOpacity style={styles.button} onPress={clickSignin} >
                     <ButtonCustom label='JOIN WITH GOOGLE' />
                 </TouchableOpacity>
