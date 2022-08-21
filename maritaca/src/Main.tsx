@@ -26,7 +26,7 @@ export function Main() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Signin">
+      <Stack.Navigator initialRouteName="Feeds">
         <Stack.Screen 
           name="Signin"
           component={Signin}
@@ -37,7 +37,15 @@ export function Main() {
             }
           }
         />
-        <Stack.Screen name="Feeds" component={Feeds} />
+        <Stack.Screen name="Feeds" 
+          component={Feeds}
+          options={
+            {
+              headerTransparent: true,
+              title: '',
+            }
+          }
+        />
         <Stack.Screen name="Viewer" component={Viewer} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,10 +5,13 @@ import { fonts } from '../../global/styles/theme';
 import Header from '../../components/Header';
 import { styles } from './styles'
 import preloaderIcon from '../../assets/preloader.png';
+// import { getFavorites } from '../../utils/auth'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Feeds() {
 
     const [cards, setCards] = useState([])
+    const [favorites, setFavorites] = useState([])
 
     const getFeed = () => {
         return fetch('https://maritaca-fpinatti.vercel.app/feed-fe.json')
@@ -22,9 +25,27 @@ export function Feeds() {
             });
     };
 
-    useEffect(() => {
+    const getFavorites = async () => {
+        // console.log('get favorites')
+        try {
+            const jsonValue = await AsyncStorage.getItem('@favorites')
+            return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch (e) {
+            // saving error
+        }
+    }
+
+    const init = async () => {
+        const fav = await getFavorites()
+        setFavorites(fav)
         getFeed()
-    })
+    }
+
+    useEffect(() => {
+        init()
+    }, [])
+
+    // await getFavorites()
 
     const preloaderAnim = useRef(new Animated.Value(0)).current;
 
@@ -36,6 +57,44 @@ export function Feeds() {
             useNativeDriver: false,
         }).start();
     };
+
+    const storeData = async (favoritesListToSave: never[]) => {
+        let favoritesSanitizedList = favoritesListToSave.map((arraySingleFavorite) => {
+            if (Array.isArray(arraySingleFavorite)) {
+                return arraySingleFavorite[0]
+            }
+            return arraySingleFavorite;
+        })
+        // console.log('unsanitized', favoritesListToSave)
+        favoritesSanitizedList = [...new Set(favoritesSanitizedList)];
+        // console.log('sanitized', favoritesSanitizedList)
+        try {
+            await AsyncStorage.setItem('@favorites', JSON.stringify(favoritesSanitizedList))
+        } catch (e) {
+            // saving error
+            console.log('error saving storage')
+        }
+    }
+
+    // const getData = async (value) => {
+    //     try {
+    //       await AsyncStorage.setItem(`@${value}`, value)
+    //     } catch (e) {
+    //       // saving error
+    //     }
+    // }
+
+    const onFavorite = async (uri: never) => {
+        let tmpArray = favorites
+        const isFavorited = favorites.indexOf(uri)
+        if (isFavorited >= 0) {
+            tmpArray = favorites.splice(isFavorited, 1)
+        }
+        setFavorites(tmpArray => [...tmpArray, uri])
+        // console.log(favorites)
+        await storeData(favorites)
+        // console.log('favorite card', uri.toString());
+    }
 
     return (
         <View style={styles.container}>
@@ -63,6 +122,8 @@ export function Feeds() {
                             provider={ item.providerTitle }
                             description={ item.plainDescription }
                             uri={ item.link }
+                            favorites={favorites}
+                            onFavorite={onFavorite}
                         />
                     )
                 }) }

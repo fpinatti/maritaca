@@ -1,4 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getDatabase, ref, onValue, set, update } from 'firebase/database';
+
+let userInfo: any
+let db: any
+
+const getDb = () => {
+  if (!db) {
+    db = getDatabase()
+  }
+  return db
+}
 
 const retrieveToken = async () => {
   let token
@@ -17,12 +28,33 @@ const storeToken = async (value: string) => {
   } catch(err) {
     console.log('error storing token')
   }
-  return token
+}
+
+const saveUserInfo = (info: any) => {
+  userInfo = info
+}
+
+const getUserInfo = () => {
+  return userInfo
+}
+
+const getFavorites = () => {
+  // const userId = getUserInfo().sub
+  // return onValue(ref(getDb(), '/favorites/' + userId), (snapshot) => {
+  //     console.log(snapshot)
+  //     // const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+  // }, {
+  //     onlyOnce: true
+  // })
+
 }
 
 export {
   retrieveToken,
   storeToken,
+  saveUserInfo,
+  getUserInfo,
+  getFavorites,
 }
 
 // import React from 'react';

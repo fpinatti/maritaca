@@ -4,6 +4,7 @@ export default {
   "expo": {
     "name": "com.pinapps.maritaca",
     "slug": "maritaca",
+    "scheme": "maritaca",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,7 +21,7 @@ export default {
     ],
     "android": {
       "package": "com.pinapps.maritaca",
-      "versionCode": 8,
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#C742A1"

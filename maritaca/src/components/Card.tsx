@@ -1,19 +1,24 @@
 import React from 'react';
 
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import ButtonCustom from './ButtonCustom';
 // import RenderHtml from 'react-native-render-html';
 import { useNavigation } from '@react-navigation/native';
 import { fonts, themeColors, themeStyles } from '../global/styles/theme';
+import heartIcon from '../../assets/heart.png';
+// import { getUserInfo } from '../utils/auth';
+// import { getDatabase, ref, onValue, set, push, update } from 'firebase/database';
 
 type Props = {
     title: String;
     provider: String;
     description: String;
     uri: String;
+    favorites: Array<any>;
+    onFavorite: Function;
 }
 
-export default function({ title, provider, description, uri }: Props) {
+export default function({ title, provider, description, uri, onFavorite, favorites }: Props) {
     const navigation = useNavigation();
     
     // const source = {
@@ -30,6 +35,25 @@ export default function({ title, provider, description, uri }: Props) {
     //     }
     // };
 
+    const doFavorite = () => {
+        // console.log(favorites.includes(uri[0]))
+        onFavorite(uri[0])
+        // const db = getDatabase()
+        // const postListRef = ref(db, `favorites/${getUserInfo().sub}`);
+        // const newPostRef = push(postListRef);
+        // set(newPostRef, {
+        //     title,
+        //     uri,
+        // });
+
+        // const reference = ref(db, `favorites/${getUserInfo().sub}`)
+        // update(reference, {
+        //     // title,
+        //     uri,
+        // })
+        // console.log('favorite', title, uri, getUserInfo().sub)
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.titleWrapper}>
@@ -45,15 +69,20 @@ export default function({ title, provider, description, uri }: Props) {
                 tagsStyles = { tagsStyles }
                 ignoredDomTags={ ['img', 'svg', 'iframe', 'progress'] }
             /> */}
-            <TouchableOpacity
-                onPress={() => navigation.navigate('Viewer' as never, {
-                    uri: uri
-                } as never)}
-            >
-                <ButtonCustom 
-                    label='READ ARTICLE'
-                />
-            </TouchableOpacity>
+            <View style={styles.buttonWrapper}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Viewer' as never, {
+                        uri
+                    } as never)}
+                >
+                    <ButtonCustom 
+                        label='READ ARTICLE'
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={ doFavorite as never }>
+                    <Image style={favorites.includes(uri[0]) && styles.favoriteFilled} source={ heartIcon }></Image>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -95,5 +124,14 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         marginBottom: 20,
     },
+    buttonWrapper: {
+        flex: 1,
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+    },
+    favoriteFilled: {
+        backgroundColor: '#00ffff',
+    }
 })
 

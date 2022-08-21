@@ -18,7 +18,7 @@ import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import * as AuthSession from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import { retrieveToken, storeToken } from '../../utils/auth';
+import { retrieveToken, storeToken, saveUserInfo } from '../../utils/auth';
 // import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 // import { GoogleAuthProvider } from "firebase/auth";
 // import * as GoogleSignIn from 'expo-google-sign-in';
@@ -37,7 +37,7 @@ export function Signin() {
         webClientId: '608932196934-855irecbrgvhnbc54nsaqh2hb32dd4gt.apps.googleusercontent.com',
     });
 
-    const fetchUserInfo = async (token: string | undefined) => {
+    const fetchUser = async (token: string | undefined) => {
         const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
             method: 'GET',
             headers: {
@@ -46,6 +46,9 @@ export function Signin() {
                 'Content-Type': 'application/json',
             }
         })
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         return await response?.json()
     }
 
@@ -60,13 +63,14 @@ export function Signin() {
     }
 
     const getUserInfo = async (token: string) => {
-        const userInfo = await fetchUserInfo(token)
-        setUi(`${userInfo.error} ** ${userInfo.email}`)
-        if (userInfo.error) {
+        const user = await fetchUser(token)
+        setUi(`${user.error} ** ${user.email}`)
+        if (user.error) {
             return
         }
+        saveUserInfo(user)
         await storeToken(token)
-        saveUser(userInfo)
+        saveUser(user)
         navigateToFeed()
     }
 
@@ -79,7 +83,6 @@ export function Signin() {
     }
 
     React.useEffect(() => {
-        getToken()
         setRespon(`${response}`)
         if (response?.type === 'success') {
             const { authentication } = response
@@ -98,9 +101,15 @@ export function Signin() {
         navigation.navigate('Feeds' as never)
     }
 
+    const init = async () => {
+        await getToken()
+    }
+
+    init()
+
     return (
         <View style={styles.container}>
-            <Header />
+            <Header profile={ false } />
             <Image 
                 source={landingImg}
                 resizeMode='contain'
